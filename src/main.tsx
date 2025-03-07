@@ -1,10 +1,25 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import {
+  WalletProvider,
+  AllDefaultWallets,
+  defineStashedWallet,
+} from "@suiet/wallet-kit";
+import "@suiet/wallet-kit/style.css";
 
-createRoot(document.getElementById('root')!).render(
+const stashedWalletConfig = defineStashedWallet({
+  appName: "Your DApp Name",
+});
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <WalletProvider
+      defaultWallets={[...AllDefaultWallets, stashedWalletConfig]}
+      
+    >
+      <App />
+    </WalletProvider>
+  </StrictMode>
+);
