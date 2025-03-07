@@ -29,7 +29,10 @@ const LandingPage = () => {
           </p>
 
           {connected ? (
-            <Buttons name="Create Your First Ticket Here!" link="/" />
+            <Buttons
+              name="Create Your First Ticket Here!"
+              link="/create-event"
+            />
           ) : (
             <CustomConnectButton />
           )}
