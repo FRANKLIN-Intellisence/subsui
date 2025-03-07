@@ -1,4 +1,4 @@
-import Buttons from '../atoms/Buttons.jsx'
+import Buttons from '../atoms/Buttons.js'
 // import Landing from '../assets/landing.jpg'
 const LandingPage = () => {
     return (
