@@ -1,11 +1,12 @@
 import Buttons from '../atoms/Buttons.js'
 import Landing from '../assets/landing2.png'
 const LandingPage = () => {
+
     return (
         <div className='bg-[#000022] text-[#ffffff] font-custom w-full flex flex-col'>
             <div className='flex flex-row items-center justify-between py-8 px-[10rem]'>
                 <h1 className='text-[#00ffff] text-[3rem] font-custom'>SUI</h1>
-                <Buttons name="Connect Wallet"/>
+                <Buttons name="Connect Wallet" link=''/>
             </div>
 
             <div className='flex flex-row items-center justify-between h-[80vh]  px-[10rem] '>
@@ -16,7 +17,7 @@ const LandingPage = () => {
                 <p className='text-[5rem] text-gradient'> Starts Here.</p>
                 </div>
                 <p className='text-3xl mb-20'>create your tickets, log customer tickets and handle event subscription</p>
-                <Buttons name="Create Your First Ticket Here!"/>
+                <Buttons link='/create-event' name="Create Your First Ticket Here!" />
                 </div>
                 <img src= {Landing} alt="" className='w-[40rem]'/>
                 
