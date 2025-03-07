@@ -5,7 +5,7 @@ const LandingPage = () => {
         <div className='bg-[#000022] text-[#ffffff] font-sans-serif'>
             <div className='flex flex-row items-center justify-between py-8 px-20'>
                 <h1 className='text-[#00ffff] text-[3rem]'>SUI</h1>
-                <Buttons name="Sign Up"/>
+                <Buttons name="Connect Wallet"/>
             </div>
 
             <div className='flex flex-row items-center justify-center h-[80vh] '>
