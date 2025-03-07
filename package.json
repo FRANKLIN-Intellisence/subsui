@@ -14,6 +14,7 @@
     "@suiet/wallet-kit": "^0.3.4",
     "@tailwindcss/vite": "^4.0.12",
     "react": "^18.3.1",
+    "react-datepicker": "^8.1.0",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.3.0",
