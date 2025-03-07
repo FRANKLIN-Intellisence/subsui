@@ -33,7 +33,7 @@ const TicketPage = () => {
                 </div>
 
                 <div className='event-form'>
-                    <h1>Event Name</h1>
+                    <input className='text-[5rem] text-[#ffffff]' type="text"  placeholder='Event Name'/>
                     <p>Welcome to the ticket page. Here you can view and manage your tickets.</p>
                 </div>
             </div>
