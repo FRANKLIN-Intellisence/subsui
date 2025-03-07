@@ -17,7 +17,7 @@ const Nav: React.FC = () => {
         </div>
         
         <div className="flex flex-col md:flex-row items-center justify-even gap-5 text-[#ffffff] text-xl mt-4 md:mt-0">
-            <span  className="flex flex-row text-xl gap-2">{new Date().toUTCString()}</span>
+            <span className="flex flex-row text-xl gap-2">{new Date().toLocaleString('en-US', { timeZone: 'Africa/Lagos' })}</span>
             <Buttons name='Create Event' link=''/>
             <span   className="text-[#00ffff]"><CiSearch /></span>
             <span  className="text-[#00ffff]"><IoMdNotificationsOutline /></span>
