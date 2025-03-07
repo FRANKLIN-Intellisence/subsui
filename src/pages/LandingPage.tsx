@@ -6,11 +6,12 @@ import { useWallet } from "@suiet/wallet-kit";
 const LandingPage = () => {
   const { connected } = useWallet();
 
+
   return (
     <div className="bg-[#000022] text-[#ffffff] font-custom w-full flex flex-col">
       <div className="flex flex-row items-center justify-between py-8 px-[10rem]">
         <h1 className="text-[#00ffff] text-[3rem] font-custom">SUI</h1>
-        <CustomConnectButton />
+        <CustomConnectButton  link=''/>
       </div>
 
       <div className="flex flex-row items-center justify-between h-[80vh]  px-[10rem] ">
