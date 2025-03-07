@@ -6,6 +6,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .font-custom {
-  font-family: 'Inter', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
