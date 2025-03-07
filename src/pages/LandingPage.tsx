@@ -1,7 +1,7 @@
 import Buttons from "../atoms/Buttons.js";
 import Landing from "../assets/landing2.png";
 import CustomConnectButton from "../atoms/CustomConnectButton.js";
-import { ConnectButton, useWallet } from "@suiet/wallet-kit";
+import {  useWallet } from "@suiet/wallet-kit";
 
 const LandingPage = () => {
   const { connected } = useWallet();
