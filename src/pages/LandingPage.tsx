@@ -9,20 +9,20 @@ const LandingPage = () => {
   return (
     <div className="bg-[#000022] text-[#ffffff] font-custom w-full flex flex-col">
       <div className="flex flex-row items-center justify-between py-8 px-[10rem]">
-        <h1 className="text-[#00ffff] text-[3rem] font-custom">SUI</h1>
+        <h1 className="text-[#00ffff] text-[3rem] font-custom">s</h1>
         <CustomConnectButton />
       </div>
 
       <div className="flex flex-row items-center justify-between h-screen  px-[10rem] ">
         <div className="font-sans-serif w-[60%]">
-          <h2 className="text-[5rem] text-[#00ffff]">Subsui</h2>
+          <h2 className="text-[2rem] text-[#00ffff]">Subsui</h2>
           <div className="flex flex-col">
-            <p className="text-[5rem] text-[#ffffff] mb-[-2rem]">
+            <p className="text-[4.5rem] text-[#ffffff] font-bold">
               Your Ticketing Journey
             </p>
-            <p className="text-[5rem] text-gradient"> Starts Here.</p>
+            <p className="text-[6rem] text-gradient font-bold"> Starts Here.</p>
           </div>
-          <p className="text-3xl mb-[2rem]">
+          <p className="text-[1.5rem] mb-[2rem]">
             Create your Events, log customer tickets and handle event
             subscription
           </p>
