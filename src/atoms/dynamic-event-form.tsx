@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, ChangeEvent } from 'react';
+import { FaHome } from 'react-icons/fa'; 
+import { Link } from 'react-router-dom';
+
+
 
 const DynamicForm = ({ formApiUrl }: { formApiUrl: string }) => {
   const [formData, setFormData] = useState<any>(null);
   const [formValues, setFormValues] = useState<any>({});
   const [errors, setErrors] = useState<Record<string, string | null>>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   useEffect(() => {
     // Fetch form configuration from API
@@ -185,7 +190,7 @@ const DynamicForm = ({ formApiUrl }: { formApiUrl: string }) => {
     if (!hasErrors) {
       // In a real application, you would submit to formData.submitUrl
       console.log('Form submitted with values:', formValues);
-      alert('Form submitted successfully! (Check console for details)');
+      setIsModalOpen(true); // Show the modal
     }
   };
 
@@ -294,6 +299,7 @@ const DynamicForm = ({ formApiUrl }: { formApiUrl: string }) => {
   if (!formData) {
     return (
       <div className="flex justify-center items-center p-8">
+
         <div className="text-lg text-red-600">Error loading form</div>
       </div>
     );
@@ -332,8 +338,43 @@ const DynamicForm = ({ formApiUrl }: { formApiUrl: string }) => {
           </button>
         </div>
       </form>
+ 
+
+      {isModalOpen && (
+        
+        <div className="fixed inset-0 flex flex-col text-xl bg-[#000022] bg-opacity-50 items-center justify-center ">
+
+          <div className="bg-[#101030] p-6 rounded-2xl shadow-lg w-1/3 h-1/2 flex flex-col gap-6 items-center justify-center ">
+            <h2 className="text-4xl font-bold mb-4 text-[#00ffff]">Registration Successful!</h2>
+            <p className="mb-4">Thank you for registering. Check out our upcoming events.</p>
+            <div className="flex justify-between gap-6">
+            
+            <Link to="/new-events">
+            <button
+                className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onClick={() => setIsModalOpen(false)} 
+              >
+                Check Upcoming Events
+              </button>
+            </Link>
+
+            <Link to ="/">
+            <button
+                className="flex items-center gap-2 text-white hover:text-[#00ffff] focus:outline-none"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <FaHome className='text-[#00ffff]'/>
+                Back to Home
+              </button>
+          </Link>
+        
+            </div>
+          </div>
+    </div>
+      )}
     </div>
   );
+  
 };
 
 export default DynamicForm;

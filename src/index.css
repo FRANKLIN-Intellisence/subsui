@@ -11,3 +11,7 @@
 .font-custom {
   font-family: "Poppins", sans-serif;
 }
+.ant-modal-content{
+  background-color: #101030;
+
+}
