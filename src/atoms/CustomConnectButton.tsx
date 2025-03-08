@@ -2,11 +2,55 @@ import { useState } from "react";
 import { useWallet, useAccountBalance } from "@suiet/wallet-kit";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
+interface WalletModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const WalletModal = ({ isOpen, onClose }: WalletModalProps) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-[#000022] border border-[#00ffff] rounded-[15px] p-6 max-w-md w-full mx-4">
+        <h2 className="text-[#00ffff] text-xl font-bold mb-4">
+          Install Wallet
+        </h2>
+        <div className="space-y-4">
+          <a
+            href="https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block p-4 border border-[#00ffff] rounded-lg hover:bg-[#00ffff] hover:text-[#000022] transition-all duration-300"
+          >
+            Sui Wallet
+          </a>
+          <a
+            href="https://chrome.google.com/webstore/detail/suiet-sui-wallet/khpkpbbcccdmmclmpigdgddabeilkdpd"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block p-4 border border-[#00ffff] rounded-lg hover:bg-[#00ffff] hover:text-[#000022] transition-all duration-300"
+          >
+            Suiet Wallet
+          </a>
+        </div>
+        <button
+          onClick={onClose}
+          className="mt-6 w-full bg-[#00ffff] text-[#000022] py-3 rounded-[15px] hover:bg-[#008888] transition-all duration-300"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const CustomConnectButton = ({ text }: { text?: string }) => {
   const { connected, disconnect, select, allAvailableWallets, address } =
     useWallet();
   const { balance, isLoading } = useAccountBalance();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Format wallet address (e.g., 0xabc...1234)
   const formatAddress = (addr: string | undefined) =>
@@ -25,7 +69,7 @@ const CustomConnectButton = ({ text }: { text?: string }) => {
     if (allAvailableWallets.length > 0) {
       select(allAvailableWallets[0].name);
     } else {
-      alert("No wallets found. Please install a wallet.");
+      setIsModalOpen(true);
     }
   };
 
@@ -64,6 +108,7 @@ const CustomConnectButton = ({ text }: { text?: string }) => {
           {text ? text : "Connect Wallet"}
         </button>
       )}
+      <WalletModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
