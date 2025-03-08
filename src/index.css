@@ -4,9 +4,14 @@
 .text-gradient {
   background: linear-gradient(90deg, purple, blue, red);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .font-custom {
   font-family: "Poppins", sans-serif;
+}
+.ant-modal-content{
+  background-color: #101030;
+
 }
