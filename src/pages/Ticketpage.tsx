@@ -5,6 +5,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaBook } from "react-icons/fa6";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { IoTicketOutline } from "react-icons/io5";
+import Button from "../atoms/Buttons";
 
 const TicketPage = () => {
   const [event, setEvent] = useState({
@@ -26,13 +27,13 @@ const TicketPage = () => {
   return (
     <div>
       <Nav />
-      <div className="flex flex-row items-center justify-center px-[10rem] bg-[#000022] text-[#ffffff] h-screen">
-        <div className="relative w-[20rem] h-[20rem] text-black bg-[#fff] flex items-center justify-center overflow-hidden">
+      <div className="flex flex-row items-start justify-center bg-[#000022] text-[#ffffff] h-screen gap-[2rem] mt-[3rem]">
+        <div className="relative w-[24rem] h-[24rem] text-black bg-[#fff] flex items-center justify-center overflow-hidden rounded-md">
           {imagePreview ? (
             <img
               src={imagePreview}
               alt="Event"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-md"
             />
           ) : (
             <FaRegImage className="text-gray-400 text-7xl" />
@@ -45,9 +46,9 @@ const TicketPage = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-8">
+        <form className="flex flex-col gap-8 w-[30rem]">
           <input
-            className="text-[5rem] text-[#ffffff] focus:outline-none"
+            className="text-[5rem] text-[#ffffff] focus:outline-none rounded-md"
             type="text"
             placeholder="Event Name"
             value={event.name}
@@ -60,14 +61,13 @@ const TicketPage = () => {
             tickets.
           </p>
 
-          <div className="setDateTime w-[40rem] h-fit py-4 b-[1px] bg-[#010131] flex flex-row justify-between text-2xl ">
+          <div className="setDateTime h-fit b-[1px] bg-[#010131] flex flex-row justify-between text-2xl ">
             <div className="text-2xl flex flex-col gap-4">
               <p>Start</p>
-              {/* <FaArrowsAltV /> */}
               <p>End</p>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 ">
               <div className="setDate text-[#ffffff]">
                 <input
                   type="date"
@@ -114,7 +114,7 @@ const TicketPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 w-[40rem] h-fit py-4 b-[1px] bg-[#010131] ">
+          <div className="flex flex-col gap-4 h-fit py-4 b-[1px] bg-[#010131] ">
             <span className="flex flex-row gap-5">
               {" "}
               <FaLocationDot />
@@ -124,7 +124,7 @@ const TicketPage = () => {
           </div>
 
           <div>
-            <span className="flex flex-row gap-5 w-[40rem] h-fit py-4 b-[1px] bg-[#010131]">
+            <span className="flex flex-row gap-5 h-fit py-4 b-[1px] bg-[#010131]">
               <FaBook />
 
               <p>Add Description</p>
@@ -135,7 +135,7 @@ const TicketPage = () => {
           <div>
             <p>Event Options</p>
 
-            <div className="flex flex-row w-[40rem] h-fit px-4 py-4 b-[1px] bg-[#010131] justify-between items-center">
+            <div className="flex flex-row h-fit px-4 bg-[#010131] justify-between items-center">
               <div className="flex flex-row gap-8">
                 <IoTicketOutline className="text-[#00ffff]" />
                 <p>Tickets</p>
@@ -148,7 +148,9 @@ const TicketPage = () => {
               </div>
             </div>
           </div>
-        </div>
+
+          <Button name="Create Event" />
+        </form>
       </div>
     </div>
   );
