@@ -234,6 +234,7 @@ const TicketPage = () => {
           </label>
 
           <Button name="Create Event" type="submit" />
+          <Button name="Create Event" link="/event-created" />
         </form>
       </div>
     </div>

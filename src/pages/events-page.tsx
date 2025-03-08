@@ -2,10 +2,16 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import DynamicForm from "../atoms/dynamic-event-form";
 import Nav from "../atoms/Nav";
+import Buttons from "../atoms/Buttons";
 
 const EventRegistrationPage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+ 
 
+  const handleFormSubmit = () => {
+    setFormSubmitted(true);
+  };
   return (
     <div className="bg-[#000022] text-[#ffffff]  w-full  flex-col">
       <Nav />
@@ -183,10 +189,9 @@ const EventRegistrationPage = () => {
 
       {/* Registration Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-12">
           <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6 sticky top-0">
-              <h3 className="text-xl font-bold">Registration Form</h3>
               <button
                 onClick={() => setShowModal(false)}
                 className="text-gray-400 hover:text-white"
@@ -194,8 +199,16 @@ const EventRegistrationPage = () => {
                 <X className="w-6 h-6" />
               </button>
             </div>
-
+            {!formSubmitted ? (
+              
             <DynamicForm formApiUrl="/api/events/register" />
+          ):
+            (
+              <div>
+                <h1>Registration Successful</h1>
+              <Buttons name="See more events" link='/new-events'/> 
+              </div>
+            )}
           </div>
         </div>
       )}
