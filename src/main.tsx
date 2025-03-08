@@ -5,19 +5,24 @@ import App from "./App.tsx";
 import {
   WalletProvider,
   AllDefaultWallets,
-  defineStashedWallet,
+  SuiDevnetChain,
+  SuiTestnetChain,
+  SuiMainnetChain,
+  Chain,
 } from "@suiet/wallet-kit";
 import "@suiet/wallet-kit/style.css";
 
-const stashedWalletConfig = defineStashedWallet({
-  appName: "Your DApp Name",
-});
+const supportedChains: Chain[] = [
+  SuiDevnetChain,
+  SuiTestnetChain,
+  SuiMainnetChain,
+];
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <WalletProvider
-      defaultWallets={[...AllDefaultWallets, stashedWalletConfig]}
-      
+      defaultWallets={[...AllDefaultWallets]}
+      chains={supportedChains}
     >
       <App />
     </WalletProvider>

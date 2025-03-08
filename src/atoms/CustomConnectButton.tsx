@@ -66,9 +66,13 @@ const CustomConnectButton = ({ text }: { text?: string }) => {
 
   // Handle wallet connection
   const handleConnect = () => {
-    if (allAvailableWallets.length > 0) {
-      select(allAvailableWallets[0].name);
-    } else {
+    try {
+      if (allAvailableWallets.length > 0) {
+        select(allAvailableWallets[0].name);
+      } else {
+        setIsModalOpen(true);
+      }
+    } catch (error) {
       setIsModalOpen(true);
     }
   };
