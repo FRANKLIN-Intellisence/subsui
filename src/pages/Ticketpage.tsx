@@ -62,12 +62,8 @@ const TicketPage = () => {
           </p>
 
           <div className="setDateTime h-fit b-[1px] bg-[#010131] flex flex-row justify-between text-2xl ">
-            <div className="text-2xl flex flex-col gap-4">
+            <div className="flex gap-4 ">
               <p>Start</p>
-              <p>End</p>
-            </div>
-
-            <div className="flex flex-col gap-4 ">
               <div className="setDate text-[#ffffff]">
                 <input
                   type="date"
@@ -93,6 +89,7 @@ const TicketPage = () => {
                 <p className="start-date"></p>
               </div>
               <div>
+                <p>End</p>
                 <input
                   type="date"
                   onChange={(e) => {
@@ -115,7 +112,7 @@ const TicketPage = () => {
           </div>
 
           <div className="flex flex-col gap-4 h-fit py-4 b-[1px] bg-[#010131] ">
-            <span className="flex flex-row gap-5">
+            <span className="flex gap-5">
               {" "}
               <FaLocationDot />
               <p>Add Event Location</p>
