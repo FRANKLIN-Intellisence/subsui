@@ -3,19 +3,25 @@ import Nav from "../atoms/Nav";
 import { FaRegImage } from "react-icons/fa6";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaBook } from "react-icons/fa6";
-import { FaRegPenToSquare } from "react-icons/fa6";
-import { IoTicketOutline } from "react-icons/io5";
 import Button from "../atoms/Buttons";
+import DatePicker from "react-datepicker";
+import { LuCalendarDays } from "react-icons/lu";
+import "react-datepicker/dist/react-datepicker.css";
 
 const TicketPage = () => {
   const [event, setEvent] = useState({
     name: "Event Name",
-    date: "",
     location: "",
     description: "",
     tickets: "",
+    privateEvent: false,
+    stakingEnabled: false,
+    eventCategory: "",
+    ticketAmount: "",
   });
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +29,11 @@ const TicketPage = () => {
       const imgURL = URL.createObjectURL(e.target.files[0]);
       setImagePreview(imgURL);
     }
+  };
+
+  const handleCreateEvent = () => {
+    const start_date = startDate.getTime();
+    const end_date = endDate.getTime();
   };
   return (
     <div>
@@ -46,9 +57,9 @@ const TicketPage = () => {
           />
         </div>
 
-        <form className="flex flex-col gap-8 w-[30rem]">
+        <form className="flex flex-col gap-4 w-[30rem]">
           <input
-            className="text-[5rem] text-[#ffffff] focus:outline-none rounded-md"
+            className="text-[4rem] text-[#ffffff] focus:outline-none rounded-md"
             type="text"
             placeholder="Event Name"
             value={event.name}
@@ -56,95 +67,122 @@ const TicketPage = () => {
               setEvent({ ...event, name: e.target.value });
             }}
           />
-          <p className="">
+          <p className="text-[1rem]">
             Welcome to the ticket page. Here you can view and manage your
             tickets.
           </p>
 
-          <div className="setDateTime h-fit b-[1px] bg-[#010131] flex flex-row justify-between text-2xl ">
-            <div className="flex gap-4 ">
-              <p>Start</p>
-              <div className="setDate text-[#ffffff]">
-                <input
-                  type="date"
-                  placeholder=""
-                  onChange={(e) => {
-                    const startDate = new Date(e.target.value);
-                    const formattedDate = startDate.toLocaleDateString(
-                      "en-US",
-                      {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      }
-                    );
-                    const startDateElement =
-                      document.querySelector(".start-date");
-                    if (startDateElement) {
-                      startDateElement.textContent = formattedDate;
-                    }
-                  }}
+          <div className="setDateTime h-fit flex flex-row justify-between text-2xl ">
+            <div className="flex gap-4 flex flex-col w-full ">
+              <div className="flex gap-4 items-center justify-start bg-[#010131] w-full">
+                <div className="flex gap-2 text-black bg-[#00ffff] px-4 py-2 w-[30%]">
+                  <LuCalendarDays />
+                  <p className="text-[1rem]">Start Date</p>
+                </div>
+
+                <DatePicker
+                  className="text-[1rem] px-4 py-1 flex-1"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date as Date)}
+                  showTimeSelect
+                  dateFormat="Pp"
                 />
-                <p className="start-date"></p>
               </div>
-              <div>
-                <p>End</p>
-                <input
-                  type="date"
-                  onChange={(e) => {
-                    const endDate = new Date(e.target.value);
-                    const formattedDate = endDate.toLocaleDateString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    });
-                    const endDateElement = document.querySelector(".end-date");
-                    if (endDateElement) {
-                      endDateElement.textContent = formattedDate;
-                    }
-                  }}
+              <div className="flex gap-4 items-center justify-start bg-[#010131] ">
+                <div className="flex gap-2 text-black bg-[#00ffff] px-4 py-2 w-[30%]">
+                  <LuCalendarDays />
+                  <p className="text-[1rem]">End Date</p>
+                </div>
+
+                <DatePicker
+                  className="text-[1rem] px-4 py-1 flex-1"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date as Date)}
+                  showTimeSelect
+                  dateFormat="Pp"
                 />
-                <p className="end-date"></p>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 h-fit py-4 b-[1px] bg-[#010131] ">
-            <span className="flex gap-5">
-              {" "}
-              <FaLocationDot />
-              <p>Add Event Location</p>
+          <div className="flex flex-col gap-4 px-4 py-2 bg-[#010131] ">
+            <span className="flex gap-5 items-center justify-start">
+              <FaLocationDot className="text-[1rem]" />
+              <p className="text-[1rem]">Add Event Location</p>
             </span>
-            <input type="text" placeholder="Offline Location or Virtual Link" />
+            <input
+              className="outline-none px-4 py-1 text-[.9rem]"
+              type="text"
+              placeholder="Offline Location or Virtual Link "
+            />
           </div>
 
-          <div>
-            <span className="flex flex-row gap-5 h-fit py-4 b-[1px] bg-[#010131]">
-              <FaBook />
-
-              <p>Add Description</p>
+          <div className="flex flex-col gap-4 px-4 py-2 bg-[#010131] ">
+            <span className="flex gap-5 ">
+              <FaLocationDot className="text-[1rem]" />
+              <p className="text-[1rem]">Add Description</p>
             </span>
-            <input type="text" name="" id="" />
+            <input
+              className="outline-none px-4 py-1 text-[.9rem]"
+              type="text"
+              placeholder="Add event description"
+            />
           </div>
 
-          <div>
-            <p>Event Options</p>
-
-            <div className="flex flex-row h-fit px-4 bg-[#010131] justify-between items-center">
-              <div className="flex flex-row gap-8">
-                <IoTicketOutline className="text-[#00ffff]" />
-                <p>Tickets</p>
-              </div>
-              <div className="flex flex-row gap-8">
-                <p>Free</p>
-                <a href="">
-                  <FaRegPenToSquare className="text-[#00ffff]" />{" "}
-                </a>
-              </div>
-            </div>
+          <div className="flex justify-between items-center gap-4">
+            <label className="flex justify-between items-center gap-4">
+              <span>Private Event</span>
+              <input
+                type="checkbox"
+                checked={event.privateEvent}
+                onChange={() =>
+                  setEvent({ ...event, privateEvent: !event.privateEvent })
+                }
+              />
+            </label>
+            <label className="flex justify-between items-center gap-4">
+              <span>Staking Enabled</span>
+              <input
+                type="checkbox"
+                checked={event.stakingEnabled}
+                onChange={() =>
+                  setEvent({ ...event, stakingEnabled: !event.stakingEnabled })
+                }
+              />
+            </label>
           </div>
+
+          {/* Event Category Dropdown */}
+          <label className="flex justify-between items-center">
+            <span>Event Category</span>
+            <select
+              className="bg-[#fff] text-black px-2 py-1 rounded"
+              value={event.eventCategory}
+              onChange={(e) =>
+                setEvent({ ...event, eventCategory: e.target.value })
+              }
+            >
+              <option value="">Select Category</option>
+              <option value="Conference">Conference</option>
+              <option value="Concert">Concert</option>
+              <option value="Webinar">Webinar</option>
+              <option value="Meetup">Meetup</option>
+            </select>
+          </label>
+
+          {/* Ticket Amount Input */}
+          <label className="flex justify-between items-center">
+            <span>Amount of Tickets</span>
+            <input
+              className="bg-[#fff] text-black px-2 py-1 rounded"
+              type="number"
+              min="1"
+              value={event.ticketAmount}
+              onChange={(e) =>
+                setEvent({ ...event, ticketAmount: e.target.value })
+              }
+            />
+          </label>
 
           <Button name="Create Event" />
         </form>
