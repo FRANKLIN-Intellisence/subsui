@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useWallet, useAccountBalance } from "@suiet/wallet-kit";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const CustomConnectButton = () => {
   const { connected, disconnect, select, allAvailableWallets, address } =
@@ -34,20 +35,21 @@ const CustomConnectButton = () => {
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="bg-[#00ffff] text-[#000022] px-6 py-2 rounded-lg font-bold hover:bg-[#008888] transition-all duration-300 flex items-center gap-4"
+            className="bg-[#00ffff] text-[#000022] px-6 py-2 rounded-[15px] font-bold hover:bg-[#008888] transition-all duration-300 flex items-center gap-4 font-light"
           >
             <span> {formatBalance()}</span>
             <span>{formatAddress(address)}</span>
+            <MdOutlineKeyboardArrowDown />
           </button>
 
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-lg rounded-lg overflow-hidden">
+            <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-lg  rounded-[15px] overflow-hidden text-center w-full font-normal">
               <button
                 onClick={() => {
                   disconnect();
                   setDropdownOpen(false);
                 }}
-                className="block w-full px-4 py-2 text-left hover:bg-gray-200"
+                className="block w-full px-4 py-2 hover:bg-gray-200 text-center"
               >
                 Disconnect
               </button>
@@ -57,7 +59,7 @@ const CustomConnectButton = () => {
       ) : (
         <button
           onClick={handleConnect}
-          className="bg-[#00ffff] text-[#000022] px-6 py-2 rounded-lg font-bold hover:bg-[#008888] transition-all duration-300"
+          className="bg-[#00ffff] text-[#000022] px-6 py-2  rounded-[15px] text-center font-bold hover:bg-[#008888] transition-all duration-300 font-light"
         >
           Connect Wallet
         </button>

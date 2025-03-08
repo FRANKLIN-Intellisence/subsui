@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 type ButtonProps = {
   name: string;
   link: string;
+  children?: React.ReactNode;
+  onclick?: () => void;
 };
 
 const Button = (props: ButtonProps) => {
@@ -10,15 +12,20 @@ const Button = (props: ButtonProps) => {
     <>
       {props.link && (
         <Link to={props.link}>
-          <button className="bg-[#00ffff] text-[#000] px-4 py-4 rounded-[5px] text-[1rem] md:text-[1.1rem] font-semibold cursor-pointer">
+          <button className="bg-[#00ffff] text-[#000] px-4 py-4 rounded-[15px] text-[1rem] md:text-[1.1rem] cursor-pointer">
+            {props.children}
             {props.name}
           </button>
         </Link>
       )}
 
       {!props.link && (
-        <button className="bg-[#00ffff] text-[#000] px-4 py-4 rounded-[5px] text-[1rem] md:text-[1.1rem] font-semibold cursor-pointer">
+        <button
+          onClick={() => onclick}
+          className="bg-[#00ffff] text-[#000] px-4 py-4 rounded-[15px] text-[1rem] md:text-[1.1rem] cursor-pointer"
+        >
           {props.name}
+          {props.children}
         </button>
       )}
     </>
