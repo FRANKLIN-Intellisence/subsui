@@ -7,7 +7,6 @@ import Buttons from "../atoms/Buttons";
 const EventRegistrationPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
- 
 
   const handleFormSubmit = () => {
     setFormSubmitted(true);
@@ -200,13 +199,15 @@ const EventRegistrationPage = () => {
               </button>
             </div>
             {!formSubmitted ? (
-              
-            <DynamicForm formApiUrl="/api/events/register" />
-          ):
-            (
+              <DynamicForm formApiUrl="/api/events/register" />
+            ) : (
               <div>
                 <h1>Registration Successful</h1>
-              <Buttons name="See more events" link='/new-events'/> 
+                <Buttons
+                  name="See more events"
+                  link="/new-events"
+                  onclick={handleFormSubmit}
+                />
               </div>
             )}
           </div>

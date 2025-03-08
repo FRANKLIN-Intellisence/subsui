@@ -30,7 +30,6 @@ const EventCreated: React.FC = () => {
               <Button key="ok" type="primary" onClick={handleOk}>
                 OK
               </Button>
-              ,
             </Link>,
           ]}
           modalRender={(modal) => (
