@@ -6,17 +6,12 @@ import {
   WalletProvider,
   AllDefaultWallets,
   SuiDevnetChain,
-  SuiTestnetChain,
-  SuiMainnetChain,
   Chain,
+  SuiTestnetChain,
 } from "@suiet/wallet-kit";
 import "@suiet/wallet-kit/style.css";
 
-const supportedChains: Chain[] = [
-  SuiDevnetChain,
-  SuiTestnetChain,
-  SuiMainnetChain,
-];
+const supportedChains: Chain[] = [SuiDevnetChain, SuiTestnetChain];
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
