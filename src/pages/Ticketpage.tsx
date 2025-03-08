@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Nav from "../atoms/Nav";
 import { FaRegImage } from "react-icons/fa6";
 import { FaLocationDot } from "react-icons/fa6";
@@ -6,17 +6,32 @@ import Button from "../atoms/Buttons";
 import DatePicker from "react-datepicker";
 import { LuCalendarDays } from "react-icons/lu";
 import "react-datepicker/dist/react-datepicker.css";
+import { SMART_CONTRACT_ADDRESS } from "../utils/sui.config";
+import { Transaction } from "@mysten/sui/transactions";
+import { useWallet } from "@suiet/wallet-kit";
 
 const TicketPage = () => {
-  const [event, setEvent] = useState({
+  const wallet = useWallet();
+  type EventState = {
+    name: string;
+    location: string;
+    description: string;
+    pricePerTicket: string;
+    privateEvent: boolean;
+    stakingEnabled: boolean;
+    eventCategory: string;
+    maxTickets: string;
+  };
+
+  const [event, setEvent] = useState<EventState>({
     name: "Event Name",
     location: "",
     description: "",
-    tickets: "",
+    pricePerTicket: "0",
     privateEvent: false,
     stakingEnabled: false,
     eventCategory: "",
-    ticketAmount: "",
+    maxTickets: "100",
   });
 
   const [startDate, setStartDate] = useState(new Date());
@@ -30,9 +45,35 @@ const TicketPage = () => {
     }
   };
 
-  const handleCreateEvent = () => {
-    const start_date = startDate.getTime();
-    const end_date = endDate.getTime();
+  const handleCreateEvent = async (e: FormEvent) => {
+    e.preventDefault();
+    const start_date = Math.floor(startDate.getTime() / 1000); // Convert to seconds for Sui
+    const end_date = Math.floor(endDate.getTime() / 1000);
+
+    // Convert string values to appropriate types for the contract
+    const maxTickets = parseInt(event.maxTickets) || 100;
+    const pricePerTicket = parseInt(event.pricePerTicket) || 0;
+
+    const tx = new Transaction();
+
+    // Properly format arguments for Sui Move call
+    tx.moveCall({
+      target: `${SMART_CONTRACT_ADDRESS}::subsui_contracts::create_event`,
+      arguments: [
+        tx.pure.string(event.name),
+        tx.pure.string(event.description),
+        tx.pure.string(event.location),
+        tx.pure.u64(start_date),
+        tx.pure.u64(maxTickets),
+        tx.pure.u64(pricePerTicket),
+        tx.pure.string(event.eventCategory),
+        tx.pure.bool(event.privateEvent),
+      ],
+    });
+
+    const txId = await wallet.signAndExecuteTransaction({ transaction: tx });
+
+    console.log("Transaction successful:", txId);
   };
   return (
     <div>
@@ -56,7 +97,10 @@ const TicketPage = () => {
           />
         </div>
 
-        <form className="flex flex-col gap-4 w-[30rem]">
+        <form
+          className="flex flex-col gap-4 w-[30rem]"
+          onSubmit={handleCreateEvent}
+        >
           <input
             className="text-[4rem] text-[#ffffff] focus:outline-none rounded-md"
             type="text"
@@ -171,18 +215,19 @@ const TicketPage = () => {
 
           {/* Ticket Amount Input */}
           <label className="flex justify-between items-center">
-            <span>Amount of Tickets</span>
+            <span>Maximum Tickets</span>
             <input
               className="bg-[#fff] text-black px-2 py-1 rounded"
               type="number"
               min="1"
-              value={event.ticketAmount}
+              value={event.maxTickets}
               onChange={(e) =>
-                setEvent({ ...event, ticketAmount: e.target.value })
+                setEvent({ ...event, maxTickets: e.target.value })
               }
             />
           </label>
 
+          <Button name="Create Event" type="submit" />
           <Button name="Create Event" link="/event-created" />
         </form>
       </div>

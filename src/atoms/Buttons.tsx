@@ -5,6 +5,7 @@ type ButtonProps = {
   link?: string;
   children?: React.ReactNode;
   onclick?: () => void;
+  type?: "button" | "submit" | "reset";
 };
 
 const Button = (props: ButtonProps) => {
@@ -12,7 +13,10 @@ const Button = (props: ButtonProps) => {
     <>
       {props.link && (
         <Link to={props.link}>
-          <button className="bg-[#00ffff] text-[#000] px-4 py-4 rounded-[15px] text-[1rem] md:text-[1.1rem] cursor-pointer">
+          <button
+            className="bg-[#00ffff] text-[#000] px-4 py-4 rounded-[15px] text-[1rem] md:text-[1.1rem] cursor-pointer"
+            type={props.type || "button"}
+          >
             {props.children}
             {props.name}
           </button>
@@ -23,6 +27,7 @@ const Button = (props: ButtonProps) => {
         <button
           onClick={() => onclick}
           className="bg-[#00ffff] text-[#000] px-4 py-4 rounded-[15px] text-[1rem] md:text-[1.1rem] cursor-pointer"
+          type={props.type || "button"}
         >
           {props.name}
           {props.children}
