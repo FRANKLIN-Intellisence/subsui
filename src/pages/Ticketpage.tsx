@@ -25,12 +25,12 @@ const TicketPage = () => {
 
   const [event, setEvent] = useState<EventState>({
     name: "Event Name",
-    location: "",
-    description: "",
+    location: "Itam",
+    description: "Itam2",
     pricePerTicket: "0",
     privateEvent: false,
     stakingEnabled: false,
-    eventCategory: "",
+    eventCategory: "Itam3",
     maxTickets: "100",
   });
 
@@ -50,30 +50,36 @@ const TicketPage = () => {
     const start_date = Math.floor(startDate.getTime() / 1000); // Convert to seconds for Sui
     const end_date = Math.floor(endDate.getTime() / 1000);
 
-    // Convert string values to appropriate types for the contract
-    const maxTickets = parseInt(event.maxTickets) || 100;
-    const pricePerTicket = parseInt(event.pricePerTicket) || 0;
+    try {
+      // Convert string values to appropriate types for the contract
+      const maxTickets = parseInt(event.maxTickets) || 100;
+      const pricePerTicket = parseInt(event.pricePerTicket) || 0;
 
-    const tx = new Transaction();
+      const tx = new Transaction();
 
-    // Properly format arguments for Sui Move call
-    tx.moveCall({
-      target: `${SMART_CONTRACT_ADDRESS}::subsui_contracts::create_event`,
-      arguments: [
-        tx.pure.string(event.name),
-        tx.pure.string(event.description),
-        tx.pure.string(event.location),
-        tx.pure.u64(start_date),
-        tx.pure.u64(maxTickets),
-        tx.pure.u64(pricePerTicket),
-        tx.pure.string(event.eventCategory),
-        tx.pure.bool(event.privateEvent),
-      ],
-    });
+      // Properly format arguments for Sui Move call
+      tx.moveCall({
+        target: `${SMART_CONTRACT_ADDRESS}::subsui_contracts::create_event`,
+        arguments: [
+          tx.pure.string(event.name),
+          tx.pure.string(event.description),
+          tx.pure.string(event.location),
+          tx.pure.u64(start_date),
+          tx.pure.u64(maxTickets),
+          tx.pure.u64(pricePerTicket),
+          tx.pure.string(event.eventCategory),
+          tx.pure.bool(event.privateEvent),
+        ],
+      });
+   
+    
 
-    const txId = await wallet.signAndExecuteTransaction({ transaction: tx });
+      const txId = await wallet.signTransaction({ transaction: tx });
 
-    console.log("Transaction successful:", txId);
+      console.log("Transaction successful:", txId);
+    } catch (error) {
+      console.error("Error creating event:", error);
+    }
   };
   return (
     <div>

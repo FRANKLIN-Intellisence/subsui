@@ -1,7 +1,7 @@
 import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
 
 export const client = new SuiClient({
-  url: getFullnodeUrl("devnet"),
+  url: getFullnodeUrl("testnet"),
 });
 
 export const SMART_CONTRACT_ADDRESS =
