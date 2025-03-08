@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 type ButtonProps = {
   name: string;
-  link: string;
+  link?: string;
   children?: React.ReactNode;
   onclick?: () => void;
 };

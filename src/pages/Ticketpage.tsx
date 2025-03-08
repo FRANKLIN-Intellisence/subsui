@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Nav from "../atoms/Nav";
 import { FaRegImage } from "react-icons/fa6";
 import { FaLocationDot } from "react-icons/fa6";
@@ -5,43 +6,54 @@ import { FaBook } from "react-icons/fa6";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { IoTicketOutline } from "react-icons/io5";
 
-
-
 const TicketPage = () => {
+  const [event, setEvent] = useState({
+    name: "Event Name",
+    date: "",
+    location: "",
+    description: "",
+    tickets: "",
+  });
 
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const imgURL = URL.createObjectURL(e.target.files[0]);
+      setImagePreview(imgURL);
+    }
+  };
   return (
     <div>
       <Nav />
-      <div className="flex flex-row items-center justify-between h-[80vh] px-[10rem] bg-[#000022] text-[#ffffff]">
-        <div className="image-holder w-[20rem] h-[20rem] text-black bg-[#fff] flex items-center justify-center">
-          <img src={<FaRegImage />} className="w-full h-full object-cover" />
+      <div className="flex flex-row items-center justify-center px-[10rem] bg-[#000022] text-[#ffffff] h-screen">
+        <div className="relative w-[20rem] h-[20rem] text-black bg-[#fff] flex items-center justify-center overflow-hidden">
+          {imagePreview ? (
+            <img
+              src={imagePreview}
+              alt="Event"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <FaRegImage className="text-gray-400 text-7xl" />
+          )}
           <input
             type="file"
             accept="image/*"
-            placeholder=""
-            className="absolute opacity-0 w-full h-full cursor-pointer"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              if (e.target.files && e.target.files[0]) {
-                const img = document.createElement("img");
-                img.src = URL.createObjectURL(e.target.files[0]);
-                img.onload = () => {
-                  URL.revokeObjectURL(img.src);
-                };
-                const imageHolder = document.querySelector(".image-holder");
-                if (imageHolder) {
-                  imageHolder.innerHTML = "";
-                  imageHolder.appendChild(img);
-                }
-              }
-            }}
+            className="absolute inset-0 opacity-0 cursor-pointer"
+            onChange={handleImageChange}
           />
         </div>
 
-        <div className="event-form  flex flex-col gap-8">
+        <div className="flex flex-col gap-8">
           <input
-            className="text-[5rem] text-[#ffffff]"
+            className="text-[5rem] text-[#ffffff] focus:outline-none"
             type="text"
             placeholder="Event Name"
+            value={event.name}
+            onChange={(e) => {
+              setEvent({ ...event, name: e.target.value });
+            }}
           />
           <p className="">
             Welcome to the ticket page. Here you can view and manage your
@@ -111,37 +123,32 @@ const TicketPage = () => {
             <input type="text" placeholder="Offline Location or Virtual Link" />
           </div>
 
+          <div>
+            <span className="flex flex-row gap-5 w-[40rem] h-fit py-4 b-[1px] bg-[#010131]">
+              <FaBook />
+
+              <p>Add Description</p>
+            </span>
+            <input type="text" name="" id="" />
+          </div>
 
           <div>
-          <span className="flex flex-row gap-5 w-[40rem] h-fit py-4 b-[1px] bg-[#010131]" >
-            <FaBook />
-
-            <p>Add Description</p>
-          </span>
-          <input type="text" name="" id="" />
-        </div>
-         
-
-         <div>
             <p>Event Options</p>
 
             <div className="flex flex-row w-[40rem] h-fit px-4 py-4 b-[1px] bg-[#010131] justify-between items-center">
-                <div className="flex flex-row gap-8">
-                <IoTicketOutline className="text-[#00ffff]"/>
+              <div className="flex flex-row gap-8">
+                <IoTicketOutline className="text-[#00ffff]" />
                 <p>Tickets</p>
-                </div>
-                <div className="flex flex-row gap-8">
-                    <p>Free</p>
-                    <a href=""><FaRegPenToSquare className="text-[#00ffff]"/> </a>
-                </div>
+              </div>
+              <div className="flex flex-row gap-8">
+                <p>Free</p>
+                <a href="">
+                  <FaRegPenToSquare className="text-[#00ffff]" />{" "}
+                </a>
+              </div>
             </div>
-
-
-         </div>
-
+          </div>
         </div>
-
-        
       </div>
     </div>
   );

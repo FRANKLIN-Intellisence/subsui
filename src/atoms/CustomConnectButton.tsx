@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useWallet, useAccountBalance } from "@suiet/wallet-kit";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
-const CustomConnectButton = () => {
+const CustomConnectButton = ({ text }: { text?: string }) => {
   const { connected, disconnect, select, allAvailableWallets, address } =
     useWallet();
   const { balance, isLoading } = useAccountBalance();
@@ -35,7 +35,7 @@ const CustomConnectButton = () => {
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="bg-[#00ffff] text-[#000022] px-6 py-2 rounded-[15px] font-bold hover:bg-[#008888] transition-all duration-300 flex items-center gap-4 font-light"
+            className="bg-[#00ffff] text-[#000022] px-6 py-3 rounded-[15px] font-bold hover:bg-[#008888] transition-all duration-300 flex items-center gap-4 font-light"
           >
             <span> {formatBalance()}</span>
             <span>{formatAddress(address)}</span>
@@ -49,7 +49,7 @@ const CustomConnectButton = () => {
                   disconnect();
                   setDropdownOpen(false);
                 }}
-                className="block w-full px-4 py-2 hover:bg-gray-200 text-center"
+                className="block w-full px-4 py-3 hover:bg-gray-200 text-center"
               >
                 Disconnect
               </button>
@@ -59,9 +59,9 @@ const CustomConnectButton = () => {
       ) : (
         <button
           onClick={handleConnect}
-          className="bg-[#00ffff] text-[#000022] px-6 py-2  rounded-[15px] text-center font-bold hover:bg-[#008888] transition-all duration-300 font-light"
+          className="bg-[#00ffff] text-[#000022] px-6 py-3  rounded-[15px] text-center hover:bg-[#008888] transition-all duration-300 font-normal"
         >
-          Connect Wallet
+          {text ? text : "Connect Wallet"}
         </button>
       )}
     </div>
