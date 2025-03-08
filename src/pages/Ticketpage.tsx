@@ -48,7 +48,7 @@ const TicketPage = () => {
   const handleCreateEvent = async (e: FormEvent) => {
     e.preventDefault();
     const start_date = Math.floor(startDate.getTime() / 1000); // Convert to seconds for Sui
-    const end_date = Math.floor(endDate.getTime() / 1000);
+    // const end_date = Math.floor(endDate.getTime() / 1000);
 
     try {
       // Convert string values to appropriate types for the contract
@@ -71,8 +71,6 @@ const TicketPage = () => {
           tx.pure.bool(event.privateEvent),
         ],
       });
-   
-    
 
       const txId = await wallet.signTransaction({ transaction: tx });
 
