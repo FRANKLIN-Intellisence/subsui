@@ -11,7 +11,7 @@ const LandingPage = () => {
     <div className="bg-[#000022] text-[#ffffff] font-custom w-full flex flex-col">
       <Nav />
 
-      <div className="flex flex-col md:flex-row items-center justify-between min-h-screen px-6 px-[10rem] ">
+      <div className="flex flex-col md:flex-row items-center justify-between min-h-screen px-6 md:px-[10rem] gap-6 md:gap-12 ">
         <div className="w-full md:w-[60%] text-center md:text-left">
           <h2 className="text-xl md:text-[2rem] text-[#00ffff]">Subsui</h2>
           <div className="flex flex-col">
