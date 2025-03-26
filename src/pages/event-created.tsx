@@ -18,10 +18,10 @@ const EventCreated: React.FC = () => {
 
   return (
     <div>
-      <div className="fixed inset-0 flex flex-col text-xl bg-[#000022] bg-opacity-50  ">
+      <div className="fixed inset-0 flex flex-col text-base md:text-xl bg-[#000022] bg-opacity-50  ">
         <Nav />
         <Modal
-          title={<span className="text-2xl">Event Created Successfully</span>}
+          title={<span className="text-lg md:text-2xl">Event Created Successfully</span>}
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -33,12 +33,12 @@ const EventCreated: React.FC = () => {
             </Link>,
           ]}
           modalRender={(modal) => (
-            <div className=" p-[6rem] rounded-2xl shadow-lg w-full h-full flex flex-col gap-[4rem] items-center justify-center">
+            <div className="p-6 md:p-[6rem] rounded-2xl shadow-lg w-full h-full flex flex-col gap-6 md:gap-[4rem] items-center justify-center">
               {modal}
             </div>
           )}
         >
-          <p className="text-md py-8">
+          <p className="text-sm md:text-md py-4 md:py-8">
             Your event has been created successfully!
           </p>
           <p>
