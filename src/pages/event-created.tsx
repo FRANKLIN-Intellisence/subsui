@@ -18,7 +18,7 @@ const EventCreated: React.FC = () => {
 
   return (
     <div>
-      <div className="fixed inset-0 flex flex-col text-base md:text-xl bg-[#000022] bg-opacity-50 px-4 md:px-12 ">
+      <div className="fixed inset-0 flex flex-col text-base md:text-xl bg-[#000022] bg-opacity-50 min-h-scren w-full px-4 md:px-12 ">
         <Nav />
         <Modal
           title={<span className="text-lg md:text-2xl">Event Created Successfully</span>}
@@ -33,7 +33,7 @@ const EventCreated: React.FC = () => {
             </Link>,
           ]}
           modalRender={(modal) => (
-            <div className="p-6 md:p-[6rem] rounded-2xl shadow-lg w-full h-full flex flex-col gap-6 md:gap-[4rem] items-center justify-center">
+            <div className="p-6 md:p-[6rem] rounded-2xl shadow-lg w-full min-h-full flex flex-col gap-6 md:gap-[4rem] items-center justify-center">
               {modal}
             </div>
           )}
