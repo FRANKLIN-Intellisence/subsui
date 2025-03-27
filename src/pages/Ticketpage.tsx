@@ -6,7 +6,7 @@ import Button from "../atoms/Buttons";
 import DatePicker from "react-datepicker";
 import { LuCalendarDays } from "react-icons/lu";
 import "react-datepicker/dist/react-datepicker.css";
-import { SMART_CONTRACT_ADDRESS } from "../utils/sui.config";
+import { SMART_CONTRACT_ADDRESS } from "../lib/sui.config";
 import { Transaction } from "@mysten/sui/transactions";
 import { useWallet } from "@suiet/wallet-kit";
 

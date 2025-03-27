@@ -1,11 +1,15 @@
 import Buttons from "../atoms/Buttons.js";
 import Landing from "../assets/landing2.png";
-import CustomConnectButton from "../atoms/CustomConnectButton.js";
-import { useWallet } from "@suiet/wallet-kit";
+// import CustomConnectButton from "../atoms/Button/SuiCustomConnectButton.js";
+// import { useWallet } from "@suiet/wallet-kit";
 import Nav from "../atoms/Nav.js";
+import { EvmCustomConnectButton } from "../atoms/Button/EvmCustomConnetButton.js";
+import { useAccount } from "wagmi";
 
 const LandingPage = () => {
-  const { connected } = useWallet();
+  // const { connected } = useWallet();
+
+  const { isConnected } = useAccount()
 
   return (
     <div className="bg-[#000022] text-[#ffffff] font-custom w-full flex flex-col">
@@ -25,13 +29,14 @@ const LandingPage = () => {
             subscription
           </p>
 
-          {connected ? (
+          {isConnected ? (
             <Buttons
               name="Create Your First Ticket Here!"
               link="/create-event"
             />
           ) : (
-            <CustomConnectButton text="Connect Wallet to continue" />
+            // <CustomConnectButton text="Connect Wallet to continue" />
+            <EvmCustomConnectButton />
           )}
         </div>
         <img src={Landing} alt="" className="w-[40rem]" />
