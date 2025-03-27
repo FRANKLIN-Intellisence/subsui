@@ -41,7 +41,7 @@ const EventCreated: React.FC = () => {
           <p className="text-sm md:text-md py-4 md:py-8 px-2 md:px-8">
             Your event has been created successfully!
           </p>
-          <p classname="px-2 md:px-8">
+          <p className="px-2 md:px-8">
             <IoCheckmarkDoneOutline />
 
             <a href={inviteLink} target="_blank" rel="noopener noreferrer">
