@@ -21,6 +21,8 @@ const TicketPage = () => {
     stakingEnabled: boolean;
     eventCategory: string;
     maxTickets: string;
+    tradingEnabled: boolean;
+    maxTradablePercentage: number;
   };
 
   const [event, setEvent] = useState<EventState>({
@@ -32,6 +34,8 @@ const TicketPage = () => {
     stakingEnabled: false,
     eventCategory: "Itam3",
     maxTickets: "100",
+    tradingEnabled: false,
+    maxTradablePercentage: 0,
   });
 
   const [startDate, setStartDate] = useState(new Date());
@@ -197,6 +201,16 @@ const TicketPage = () => {
                 }
               />
             </label>
+            <label className="flex justify-between items-center gap-4">
+              <span>Trading Enabled</span>
+              <input
+                type="checkbox"
+                checked={event.tradingEnabled}
+                onChange={() =>
+                  setEvent({ ...event, tradingEnabled: !event.tradingEnabled })
+                }
+              />
+            </label>
           </div>
 
           {/* Event Category Dropdown */}
@@ -214,6 +228,7 @@ const TicketPage = () => {
               <option value="Concert">Concert</option>
               <option value="Webinar">Webinar</option>
               <option value="Meetup">Meetup</option>
+
             </select>
           </label>
 
@@ -232,7 +247,6 @@ const TicketPage = () => {
           </label>
 
           <Button name="Create Event" type="submit" />
-          <Button name="Create Event" link="/event-created" />
         </form>
       </div>
     </div>

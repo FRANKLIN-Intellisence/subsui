@@ -5,6 +5,8 @@ import Landing from "../assets/landing2.png";
 import Nav from "../atoms/Nav.js";
 import { EvmCustomConnectButton } from "../atoms/Button/EvmCustomConnetButton.js";
 import { useAccount } from "wagmi";
+import logo from "../assets/logo.png";
+
 
 const LandingPage = () => {
   // const { connected } = useWallet();
@@ -17,7 +19,7 @@ const LandingPage = () => {
 
       <div className="flex flex-row items-center justify-between h-screen  px-[10rem] ">
         <div className="w-[60%]">
-          <h2 className="text-[2rem] text-[#00ffff]">Subsui</h2>
+          <img src={logo} alt="Subsui Logo" className="w-[7rem]" />
           <div className="flex flex-col">
             <p className="text-[4.5rem] text-[#ffffff] font-bold">
               Your Ticketing Journey
