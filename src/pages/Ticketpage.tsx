@@ -6,12 +6,18 @@ import Button from "../atoms/Buttons";
 import DatePicker from "react-datepicker";
 import { LuCalendarDays } from "react-icons/lu";
 import "react-datepicker/dist/react-datepicker.css";
-import { SMART_CONTRACT_ADDRESS } from "../utils/sui.config";
-import { Transaction } from "@mysten/sui/transactions";
-import { useWallet } from "@suiet/wallet-kit";
+// import { SMART_CONTRACT_ADDRESS } from "../lib/sui.config";
+// import { Transaction } from "@mysten/sui/transactions";
+import { writeContract } from "viem/actions";
+import { CONTRACT_ADDRESS } from "../lib/lisk/constants";
+import { ABI } from "../lib/lisk/abi";
+// import { wagmiConfig } from "../lib/lisk/evm-wallet";
+// import { useAccount } from "wagmi";
+import { publicClient, walletClient } from "../lib/lisk/wallet-client";
 
 const TicketPage = () => {
-  const wallet = useWallet();
+
+  // const { connector } = useAccount()
   type EventState = {
     name: string;
     location: string;
@@ -21,6 +27,8 @@ const TicketPage = () => {
     stakingEnabled: boolean;
     eventCategory: string;
     maxTickets: string;
+    tradingEnabled: boolean;
+    maxTradablePercentage: number;
   };
 
   const [event, setEvent] = useState<EventState>({
@@ -32,6 +40,8 @@ const TicketPage = () => {
     stakingEnabled: false,
     eventCategory: "Itam3",
     maxTickets: "100",
+    tradingEnabled: false,
+    maxTradablePercentage: 0,
   });
 
   const [startDate, setStartDate] = useState(new Date());
@@ -47,34 +57,70 @@ const TicketPage = () => {
 
   const handleCreateEvent = async (e: FormEvent) => {
     e.preventDefault();
-    const start_date = Math.floor(startDate.getTime() / 1000); // Convert to seconds for Sui
-    // const end_date = Math.floor(endDate.getTime() / 1000);
+    // const start_date = Math.floor(startDate.getTime() / 1000); // Convert to seconds for Sui
+    const end_date = Math.floor(endDate.getTime() / 1000);
 
     try {
+
+
       // Convert string values to appropriate types for the contract
-      const maxTickets = parseInt(event.maxTickets) || 100;
-      const pricePerTicket = parseInt(event.pricePerTicket) || 0;
+      // const maxTickets = parseInt(event.maxTickets) || 100;
+      // const pricePerTicket = parseInt(event.pricePerTicket) || 0;
 
-      const tx = new Transaction();
+      // const tx = new Transaction();
 
-      // Properly format arguments for Sui Move call
-      tx.moveCall({
-        target: `${SMART_CONTRACT_ADDRESS}::subsui_contracts::create_event`,
-        arguments: [
-          tx.pure.string(event.name),
-          tx.pure.string(event.description),
-          tx.pure.string(event.location),
-          tx.pure.u64(start_date),
-          tx.pure.u64(maxTickets),
-          tx.pure.u64(pricePerTicket),
-          tx.pure.string(event.eventCategory),
-          tx.pure.bool(event.privateEvent),
+      // // Properly format arguments for Sui Move call
+      // tx.moveCall({
+      //   target: `${SMART_CONTRACT_ADDRESS}::subsui_contracts::create_event`,
+      //   arguments: [
+      //     tx.pure.string(event.name),
+      //     tx.pure.string(event.description),
+      //     tx.pure.string(event.location),
+      //     tx.pure.u64(start_date),
+      //     tx.pure.u64(maxTickets),
+      //     tx.pure.u64(pricePerTicket),
+      //     tx.pure.string(event.eventCategory),
+      //     tx.pure.bool(event.privateEvent),
+      //   ],
+      // });
+
+      // const txId = await wallet.signTransaction({ transaction: tx });
+
+      // console.log("Transaction successful:", txId);
+
+
+      const [account] = await walletClient.getAddresses()
+
+      const hash = await writeContract(walletClient, {
+        address: CONTRACT_ADDRESS,
+        abi: ABI,
+        functionName: "createEvent",
+        args: [
+          event.name,
+          event.description,
+          event.location,
+          end_date,
+          event.maxTickets,
+          event.pricePerTicket,
+          event.eventCategory,
+          event.privateEvent,
+          event.tradingEnabled,
+          event.maxTradablePercentage
         ],
-      });
+        account
+      })
 
-      const txId = await wallet.signTransaction({ transaction: tx });
+      // Wait for transaction confirmation
+      const transaction = await publicClient.waitForTransactionReceipt({
+        hash
+      })
 
-      console.log("Transaction successful:", txId);
+      
+    
+
+      console.log("Transaction successful:", transaction);
+
+
     } catch (error) {
       console.error("Error creating event:", error);
     }
@@ -197,6 +243,16 @@ const TicketPage = () => {
                 }
               />
             </label>
+            <label className="flex justify-between items-center gap-4">
+              <span>Trading Enabled</span>
+              <input
+                type="checkbox"
+                checked={event.tradingEnabled}
+                onChange={() =>
+                  setEvent({ ...event, tradingEnabled: !event.tradingEnabled })
+                }
+              />
+            </label>
           </div>
 
           {/* Event Category Dropdown */}
@@ -214,6 +270,7 @@ const TicketPage = () => {
               <option value="Concert">Concert</option>
               <option value="Webinar">Webinar</option>
               <option value="Meetup">Meetup</option>
+
             </select>
           </label>
 
@@ -232,7 +289,6 @@ const TicketPage = () => {
           </label>
 
           <Button name="Create Event" type="submit" />
-          <Button name="Create Event" link="/event-created" />
         </form>
       </div>
     </div>
