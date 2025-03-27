@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import DynamicForm from "../atoms/dynamic-event-form";
 import Nav from "../atoms/Nav";
 import Buttons from "../atoms/Buttons";
+// import { contract } from "../lib/lisk/wallet-client";
 
 const EventRegistrationPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -11,6 +12,19 @@ const EventRegistrationPage = () => {
   const handleFormSubmit = () => {
     setFormSubmitted(true);
   };
+
+
+  // const readEventDetails = async (eventId: bigint) => {
+  //   try {
+  //     const eventDetails = await contract.read.getEvent([eventId])
+  //     return eventDetails
+  //   } catch (error) {
+  //     console.error("Error reading event details:", error)
+  //     throw error
+  //   }
+  // }
+
+
   return (
     <div className="bg-[#000022] text-[#ffffff]  w-full  flex-col">
       <Nav />

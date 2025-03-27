@@ -5,8 +5,8 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
 import {
-
     liskSepolia,
+    mainnet,
 } from 'wagmi/chains';
 import {
     QueryClientProvider,
@@ -18,8 +18,7 @@ import { ReactNode } from 'react';
 export const wagmiConfig = getDefaultConfig({
     appName: 'Subsui',
     projectId: '0x33728831c9CB9ff5e9072f5c7C7178767d75dDA2',
-    chains: [liskSepolia],
-    ssr: true, // If your dApp uses server side rendering (SSR)
+    chains: [mainnet, liskSepolia],
 });
 
 const queryClient = new QueryClient();
