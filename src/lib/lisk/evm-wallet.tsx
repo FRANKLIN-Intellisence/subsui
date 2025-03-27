@@ -15,7 +15,7 @@ import {
 import { ReactNode } from 'react';
 
 
-const config = getDefaultConfig({
+export const wagmiConfig = getDefaultConfig({
     appName: 'Subsui',
     projectId: '0x33728831c9CB9ff5e9072f5c7C7178767d75dDA2',
     chains: [liskSepolia],
@@ -25,7 +25,7 @@ const config = getDefaultConfig({
 const queryClient = new QueryClient();
 const EvmWallet = ({ children }: { children: ReactNode }) => {
     return (
-        <WagmiProvider config={config} >
+        <WagmiProvider config={wagmiConfig} >
             <QueryClientProvider client={queryClient}>
                 <RainbowKitProvider>
                     {children}
