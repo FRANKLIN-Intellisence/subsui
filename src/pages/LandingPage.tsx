@@ -21,12 +21,12 @@ const LandingPage = () => {
         <div className="w-[60%]">
           <img src={logo} alt="Subsui Logo" className="w-[7rem]" />
           <div className="flex flex-col">
-            <p className="text-[4.5rem] text-[#ffffff] font-bold">
+            <p className="text-3xl md:text-[4.5rem] text-[#ffffff] font-bold">
               Your Ticketing Journey
             </p>
-            <p className="text-[6rem] text-gradient font-bold"> Starts Here.</p>
+            <p className="text-5xl md:text-[6rem] text-gradient font-bold"> Starts Here.</p>
           </div>
-          <p className="text-[1.5rem] mb-[2rem]">
+          <p className="text-lg md:text-[1.5rem] mb-6 md:mb-[2rem]">
             Create your Events, log customer tickets and handle event
             subscription
           </p>
@@ -41,7 +41,7 @@ const LandingPage = () => {
             <EvmCustomConnectButton />
           )}
         </div>
-        <img src={Landing} alt="" className="w-[40rem]" />
+        <img src={Landing} alt="" className="w-full md:w-[40rem] mt-6 md:mt-0" />
       </div>
     </div>
   );
